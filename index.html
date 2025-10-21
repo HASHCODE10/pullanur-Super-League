@@ -14,20 +14,20 @@
       min-height: 100vh;
     }
     .container {
-      width: 95%;
+      width: 99%;
       max-width: 980px;
-      margin: 60px auto;
-      background: rgba(34, 51, 74, 0.95);
+      margin: 40px auto;
+      background: rgba(34,51,74,0.96);
       border-radius: 14px;
-      box-shadow: 0 4px 32px 0 rgba(16,39,76,0.18);
-      padding: 34px 28px 22px 28px;
+      box-shadow: 0 4px 32px 0 rgba(16,39,76,0.15);
+      padding: 20px 8px 12px 8px;
       transition: box-shadow 0.4s;
     }
     h2 {
       text-align: center;
-      font-size: 2.4em;
+      font-size: 2em;
       letter-spacing: 2px;
-      margin-bottom: 26px;
+      margin-bottom: 13px;
       color: #ffd700;
       font-weight: 600;
       text-shadow: 0 2px 8px #0006;
@@ -35,40 +35,45 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      background: rgba(45,64,96,0.9);
-      margin-bottom: 32px;
-      font-size: 1.15em;
+      background: rgba(45,64,96,0.95);
+      margin-bottom: 22px;
+      font-size: 1em;
       border-radius: 6px;
       overflow: hidden;
-      box-shadow: 0 2px 16px #1119;
+      box-shadow: 0 1px 6px #1115;
+      table-layout: fixed;
     }
-    td, th {
-      padding: 13px 10px;
+    th, td {
+      padding: 8px 5px;
       text-align: center;
       border-bottom: 1px solid #2f3d4c;
+      word-break: break-word;
     }
     th {
       background: linear-gradient(90deg,#23334a 0%, #374f6d 80%);
       font-weight: 600;
       color: #ffd700;
-      font-size: 1.06em;
+      font-size: 0.92em;
     }
     tr:last-child td {
       border-bottom: none;
     }
     .button {
       display: inline-block;
-      padding: 13px 30px;
+      width: 90%;
+      max-width: 310px;
+      padding: 13px 0;
       border: none;
       border-radius: 7px;
       background: linear-gradient(90deg, #5cf6b2 0%, #2fa3fa 100%);
       color: #232;
       cursor: pointer;
-      font-size: 1.08em;
+      font-size: 1em;
       font-weight: 600;
-      margin-top: 18px;
+      margin: 12px auto 0 auto;
       box-shadow: 0 2px 10px #152c45cc;
       transition: box-shadow 0.3s, background 0.3s;
+      display: block;
     }
     .button:hover {
       background: linear-gradient(90deg, #34fbbe 0%, #2186f7 100%);
@@ -82,22 +87,22 @@
       z-index: 900;
       left: 0;
       top: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(25, 33, 42, 0.92);
+      width: 100vw;
+      height: 100vh;
+      background: rgba(25,33,42,0.96);
       align-items: center;
       justify-content: center;
-      transition: opacity 0.4s;
     }
     .modal-content {
-      background: linear-gradient(130deg, #22334a 90%, #34547b 100%);
-      padding: 38px 30px 28px 30px;
+      background: linear-gradient(130deg, #22334a 92%, #34547b 100%);
+      padding: 24px 11px 17px 11px;
       border-radius: 13px;
-      width: 365px;
+      width: 96vw;
+      max-width: 350px;
       box-shadow: 0 8px 32px #1b254299;
       position: relative;
       color: #fff;
-      font-size: 1.06em;
+      font-size: 1em;
       animation: fadeInModal 0.35s;
     }
     @keyframes fadeInModal {
@@ -106,18 +111,15 @@
     }
     .close {
       color: #ffd700;
-      font-size: 26px;
+      font-size: 2em;
       float: right;
       cursor: pointer;
-      font-weight: 900;
+      font-weight: bold;
       position: absolute;
-      top: 16px;
-      right: 18px;
-      transition: color 0.2s;
+      top: 9px;
+      right: 13px;
     }
-    .close:hover {
-      color: #fff700;
-    }
+    .close:hover { color: #fff700; }
     label {
       margin-top: 7px;
       margin-bottom: 5px;
@@ -127,24 +129,25 @@
       letter-spacing: 1px;
     }
     input, select {
+      display: block;
       width: 100%;
       background: #263343;
       border: 1px solid #466088;
       border-radius: 5px;
-      padding: 9px;
-      margin-bottom: 12px;
+      padding: 8px 7px;
+      margin-bottom: 10px;
       color: #fff;
-      font-size: 1.04em;
+      font-size: 1em;
       outline: none;
-      transition: border-color 0.2s, background 0.2s;
+      box-sizing: border-box;
     }
     input:focus, select:focus {
       border-color: #39b54a;
       background: #304661;
     }
     form button[type="submit"] {
-      padding: 12px 0;
-      font-size: 1.1em;
+      padding: 11px 0;
+      font-size: 1em;
       background: linear-gradient(90deg, #39b54a 0%, #62d983 90%);
       color: #162d2a;
       border: none;
@@ -155,6 +158,7 @@
       cursor: pointer;
       box-shadow: 0 2px 12px #29bc557d;
       transition: background 0.25s;
+      width: 100%;
     }
     form button[type="submit"]:hover {
       background: linear-gradient(90deg, #31b548 0%, #9df98b 100%);
@@ -164,15 +168,15 @@
     .football-animation {
       width: 100vw;
       height: 80px;
-      margin-top: 18px;
+      margin-top: 10px;
       display: flex;
       justify-content: center;
       align-items: flex-end;
       filter: drop-shadow(0 14px 18px #ffd70080);
     }
     .ball {
-      width: 48px;
-      height: 48px;
+      width: 42px;
+      height: 42px;
       background: radial-gradient(#fff 70%, #222 73%);
       border-radius: 50%;
       border: 3px solid #111;
@@ -182,13 +186,20 @@
     }
     @keyframes bounce {
       0%, 100% { transform: translateY(0);}
-      50% { transform: translateY(-56px);}
+      50% { transform: translateY(-48px);}
     }
-    /* Responsive */
-    @media (max-width: 700px) {
-      .container {padding: 13px 5px;}
-      .modal-content {width: 98vw;}
-      table th, table td {padding: 10px 5px;}
+    /* Responsive: show columns less on very small screens */
+    @media (max-width: 520px) {
+      .container {padding: 2vw;}
+      h2 {font-size: 1.3em;}
+      .modal-content {width: 99vw;max-width:99vw;}
+      table th, table td {padding: 7px 4px;font-size:0.93em;}
+      table th:nth-child(n+5),
+      table td:nth-child(n+5) {display:none;}
+    }
+    @media (max-width: 360px) {
+      .container{padding:0;}
+      h2{font-size:1em;}
     }
   </style>
 </head>
@@ -225,13 +236,13 @@
   <div id="passwordModal">
     <div class="modal-content">
       <span class="close" onclick="closePasswordModal()">&times;</span>
-      <h3 style="color:#ffd700; margin-bottom:20px;">Admin Access Required</h3>
+      <h3 style="color:#ffd700; margin-bottom:14px;font-size:1.1em;">Admin Access Required</h3>
       <form id="passwordForm">
         <label for="adminPass">Enter Password</label>
         <input type="password" id="adminPass" required autocomplete="off" placeholder="Password" />
         <button type="submit">Enter Admin Panel</button>
       </form>
-      <div id="passError" style="color:#ff5a5a; margin-top:6px; font-size:0.97em;"></div>
+      <div id="passError" style="color:#ff5a5a; margin-top:4px; font-size:0.97em;"></div>
     </div>
   </div>
 
@@ -239,7 +250,7 @@
   <div id="adminModal">
     <div class="modal-content">
       <span class="close" onclick="closeAdminPanel()">&times;</span>
-      <h3 style="color:#ffd700; margin-bottom:18px;">Update Match Result</h3>
+      <h3 style="color:#ffd700; margin-bottom:14px; font-size:1.1em;">Update Match Result</h3>
       <form id="matchForm">
         <label>Team 1</label>
         <select id="team1" required></select>
@@ -291,7 +302,6 @@
       tbody.innerHTML += row;
     });
   }
-
   renderStandings();
 
   // Password modal logic
@@ -355,10 +365,8 @@
 
     teamObj1.played += 1;
     teamObj2.played += 1;
-    teamObj1.gf += goals1;
-    teamObj1.ga += goals2;
-    teamObj2.gf += goals2;
-    teamObj2.ga += goals1;
+    teamObj1.gf += goals1; teamObj1.ga += goals2;
+    teamObj2.gf += goals2; teamObj2.ga += goals1;
     teamObj1.gd = teamObj1.gf - teamObj1.ga;
     teamObj2.gd = teamObj2.gf - teamObj2.ga;
 
@@ -375,13 +383,6 @@
     renderStandings();
     closeAdminPanel();
   };
-</script>
-
+  </script>
 </body>
 </html>
-
-
-
-
-
-
