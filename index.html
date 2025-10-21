@@ -259,8 +259,8 @@
   let teams = JSON.parse(localStorage.getItem("pullanur_league")) || [
     { name: "Team A", played: 2, won: 1, drawn: 1, lost: 0, gf: 1, ga: 0, gd: 1, points: 4 },
     { name: "Team B", played: 2, won: 1, drawn: 1, lost: 0, gf: 2, ga: 1, gd: 1, points: 4 },
-    { name: "Team C", played: 2, won: 0, drawn: 1, lost: 1, gf: 0, ga: 0, gd: 0, points: 1 },
-    { name: "Team D", played: 2, won: 0, drawn: 1, lost: 1, gf: 0, ga: 0, gd: 0, points: 1 },
+    { name: "Team C", played: 2, won: 0, drawn: 1, lost: 1, gf: 0, ga: 1, gd: -1, points: 1 },
+    { name: "Team D", played: 2, won: 0, drawn: 1, lost: 1, gf: 1, ga: 5, gd: -4, points: 1 },
     { name: "Team E", played: 2, won: 0, drawn: 1, lost: 1, gf: 3, ga: 4, gd: -1, points: 1 },
     { name: "Team F", played: 2, won: 1, drawn: 1, lost: 0, gf: 7, ga: 3, gd: 4, points: 4 }
   ];
@@ -379,6 +379,7 @@
 
 </body>
 </html>
+
 
 
 
