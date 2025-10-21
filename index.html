@@ -255,129 +255,127 @@
   </div>
 
   <script>
-    // Initial teams
-    const teams = [
-      { name: "Team A", played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, points: 0 },
-      { name: "Team B", played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, points: 0 },
-      { name: "Team C", played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, points: 0 },
-      { name: "Team D", played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, points: 0 },
-      { name: "Team E", played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, points: 0 },
-      { name: "Team F", played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, points: 0 }
-    ];
+  // Load saved teams from localStorage if available
+  let teams = JSON.parse(localStorage.getItem("pullanur_league")) || [
+    { name: "Team A", played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, points: 0 },
+    { name: "Team B", played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, points: 0 },
+    { name: "Team C", played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, points: 0 },
+    { name: "Team D", played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, points: 0 },
+    { name: "Team E", played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, points: 0 },
+    { name: "Team F", played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, points: 0 }
+  ];
 
-    function renderStandings() {
-      const tbody = document.querySelector("#standingsTable tbody");
-      tbody.innerHTML = "";
-      teams.sort((a, b) => b.points - a.points || b.gd - a.gd || b.gf - a.gf);
-      teams.forEach(team => {
-        const row = `
-          <tr>
-            <td>${team.name}</td>
-            <td>${team.played}</td>
-            <td>${team.won}</td>
-            <td>${team.drawn}</td>
-            <td>${team.lost}</td>
-            <td>${team.gf}</td>
-            <td>${team.ga}</td>
-            <td>${team.gd}</td>
-            <td>${team.points}</td>
-          </tr>`;
-        tbody.innerHTML += row;
-      });
+  // Save to localStorage
+  function saveData() {
+    localStorage.setItem("pullanur_league", JSON.stringify(teams));
+  }
+
+  // Render standings
+  function renderStandings() {
+    const tbody = document.querySelector("#standingsTable tbody");
+    tbody.innerHTML = "";
+    teams.sort((a, b) => b.points - a.points || b.gd - a.gd || b.gf - a.gf);
+    teams.forEach(team => {
+      const row = `
+        <tr>
+          <td>${team.name}</td>
+          <td>${team.played}</td>
+          <td>${team.won}</td>
+          <td>${team.drawn}</td>
+          <td>${team.lost}</td>
+          <td>${team.gf}</td>
+          <td>${team.ga}</td>
+          <td>${team.gd}</td>
+          <td>${team.points}</td>
+        </tr>`;
+      tbody.innerHTML += row;
+    });
+  }
+
+  renderStandings();
+
+  // Password modal logic
+  const passwordModal = document.getElementById("passwordModal");
+  const adminModal = document.getElementById("adminModal");
+  const passwordForm = document.getElementById("passwordForm");
+  const passError = document.getElementById("passError");
+
+  function openPasswordModal() {
+    passwordModal.style.display = "flex";
+    document.getElementById("adminPass").value = "";
+    passError.textContent = "";
+  }
+  function closePasswordModal() {
+    passwordModal.style.display = "none";
+  }
+
+  passwordForm.onsubmit = function(e) {
+    e.preventDefault();
+    const inputPass = document.getElementById("adminPass").value;
+    const correctPassword = "superadmin2025";
+    if (inputPass === correctPassword) {
+      closePasswordModal();
+      openAdminPanel();
+    } else {
+      passError.textContent = "Incorrect password. Try again.";
     }
+  };
+
+  function openAdminPanel() {
+    adminModal.style.display = "flex";
+    const team1Select = document.getElementById("team1");
+    const team2Select = document.getElementById("team2");
+    team1Select.innerHTML = teams.map(t => `<option value="${t.name}">${t.name}</option>`).join("");
+    team2Select.innerHTML = teams.map(t => `<option value="${t.name}">${t.name}</option>`).join("");
+  }
+  function closeAdminPanel() {
+    adminModal.style.display = "none";
+  }
+
+  window.onclick = function(e) {
+    if (e.target === passwordModal) closePasswordModal();
+    if (e.target === adminModal) closeAdminPanel();
+  };
+
+  // Match form submit
+  document.getElementById("matchForm").onsubmit = function(e) {
+    e.preventDefault();
+    const t1 = document.getElementById("team1").value;
+    const t2 = document.getElementById("team2").value;
+    const goals1 = parseInt(document.getElementById("goals1").value);
+    const goals2 = parseInt(document.getElementById("goals2").value);
+
+    if (t1 === t2) {
+      alert("Select two different teams.");
+      return;
+    }
+
+    const teamObj1 = teams.find(t => t.name === t1);
+    const teamObj2 = teams.find(t => t.name === t2);
+
+    teamObj1.played += 1;
+    teamObj2.played += 1;
+    teamObj1.gf += goals1;
+    teamObj1.ga += goals2;
+    teamObj2.gf += goals2;
+    teamObj2.ga += goals1;
+    teamObj1.gd = teamObj1.gf - teamObj1.ga;
+    teamObj2.gd = teamObj2.gf - teamObj2.ga;
+
+    if (goals1 > goals2) {
+      teamObj1.won += 1; teamObj2.lost += 1; teamObj1.points += 3;
+    } else if (goals2 > goals1) {
+      teamObj2.won += 1; teamObj1.lost += 1; teamObj2.points += 3;
+    } else {
+      teamObj1.drawn += 1; teamObj2.drawn += 1;
+      teamObj1.points += 1; teamObj2.points += 1;
+    }
+
+    saveData();
     renderStandings();
+    closeAdminPanel();
+  };
+</script>
 
-    // Password Modal Logic
-    const passwordModal = document.getElementById("passwordModal");
-    const adminModal = document.getElementById("adminModal");
-    const passwordForm = document.getElementById("passwordForm");
-    const passError = document.getElementById("passError");
-
-    function openPasswordModal() {
-      passwordModal.style.display = "flex";
-      document.getElementById("adminPass").value = "";
-      passError.textContent = "";
-    }
-    function closePasswordModal() {
-      passwordModal.style.display = "none";
-    }
-
-    passwordForm.onsubmit = function(e) {
-      e.preventDefault();
-      const inputPass = document.getElementById("adminPass").value;
-      // Set your admin password here:
-      const correctPassword = "superadmin2025"; // CHANGE THIS TO YOUR SECRET
-      if (inputPass === correctPassword) {
-        closePasswordModal();
-        openAdminPanel();
-      } else {
-        passError.textContent = "Incorrect password. Try again.";
-      }
-    };
-
-    // Admin Panel Logic
-    function openAdminPanel() {
-      adminModal.style.display = "flex";
-      const team1Select = document.getElementById("team1");
-      const team2Select = document.getElementById("team2");
-      team1Select.innerHTML = teams.map(t => `<option value="${t.name}">${t.name}</option>`).join("");
-      team2Select.innerHTML = teams.map(t => `<option value="${t.name}">${t.name}</option>`).join("");
-    }
-    function closeAdminPanel() {
-      adminModal.style.display = "none";
-    }
-
-    // Close modals on click outside
-    window.onclick = function(e) {
-      if (e.target === passwordModal) closePasswordModal();
-      if (e.target === adminModal) closeAdminPanel();
-    };
-
-    document.getElementById("matchForm").onsubmit = function(e) {
-      e.preventDefault();
-      const t1 = document.getElementById("team1").value;
-      const t2 = document.getElementById("team2").value;
-      const goals1 = parseInt(document.getElementById("goals1").value);
-      const goals2 = parseInt(document.getElementById("goals2").value);
-
-      if (t1 === t2) {
-        alert("Select two different teams.");
-        return;
-      }
-
-      const teamObj1 = teams.find(t => t.name === t1);
-      const teamObj2 = teams.find(t => t.name === t2);
-
-      teamObj1.played += 1;
-      teamObj2.played += 1;
-      // Goals update
-      teamObj1.gf += goals1;
-      teamObj1.ga += goals2;
-      teamObj2.gf += goals2;
-      teamObj2.ga += goals1;
-      // Recalculate Goal Difference
-      teamObj1.gd = teamObj1.gf - teamObj1.ga;
-      teamObj2.gd = teamObj2.gf - teamObj2.ga;
-      // Match results
-      if (goals1 > goals2) {
-        teamObj1.won += 1;
-        teamObj2.lost += 1;
-        teamObj1.points += 3;
-      } else if (goals2 > goals1) {
-        teamObj2.won += 1;
-        teamObj1.lost += 1;
-        teamObj2.points += 3;
-      } else {
-        teamObj1.drawn += 1;
-        teamObj2.drawn += 1;
-        teamObj1.points += 1;
-        teamObj2.points += 1;
-      }
-
-      renderStandings();
-      closeAdminPanel();
-    };
-
-  </script>
 </body>
 </html>
