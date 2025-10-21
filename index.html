@@ -257,12 +257,12 @@
   <script>
   // Load saved teams from localStorage if available
   let teams = JSON.parse(localStorage.getItem("pullanur_league")) || [
-    { name: "Team A", played: 2, won: 0, drawn: 1, lost: 0, gf: 0, ga: 0, gd: 0, points: 0 },
-    { name: "Team B", played: 2, won: 0, drawn: 1, lost: 0, gf: 0, ga: 0, gd: 0, points: 0 },
-    { name: "Team C", played: 2, won: 0, drawn: 1, lost: 0, gf: 0, ga: 0, gd: 0, points: 0 },
-    { name: "Team D", played: 2, won: 0, drawn: 1, lost: 0, gf: 0, ga: 0, gd: 0, points: 0 },
-    { name: "Team E", played: 2, won: 0, drawn: 1, lost: 0, gf: 0, ga: 0, gd: 0, points: 0 },
-    { name: "Team F", played: 2, won: 0, drawn: 1, lost: 0, gf: 0, ga: 0, gd: 0, points: 0 }
+    { name: "Team A", played: 2, won: 0, drawn: 1, lost: 0, gf: 0, ga: 0, gd: 0, points: 1 },
+    { name: "Team B", played: 2, won: 0, drawn: 1, lost: 0, gf: 0, ga: 0, gd: 0, points: 1 },
+    { name: "Team C", played: 2, won: 0, drawn: 1, lost: 0, gf: 0, ga: 0, gd: 0, points: 1 },
+    { name: "Team D", played: 2, won: 0, drawn: 1, lost: 0, gf: 0, ga: 0, gd: 0, points: 1 },
+    { name: "Team E", played: 2, won: 0, drawn: 1, lost: 0, gf: 0, ga: 0, gd: 0, points: 1 },
+    { name: "Team F", played: 2, won: 1, drawn: 1, lost: 0, gf: 7, ga: 3, gd: 4, points: 1 }
   ];
 
   // Save to localStorage
@@ -379,4 +379,5 @@
 
 </body>
 </html>
+
 
