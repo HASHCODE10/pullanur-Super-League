@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Top Scorers - Pullanur Super League</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(120deg, #050505 0%, #052614 80%);
+      color: #e0fff4;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    h1 {
+      margin: 2rem 0 1rem 0;
+      color: #00ff88;
+      font-size: clamp(2.7rem,7vw,5rem);
+      text-shadow: 0 0 22px #00ff88,0 2px 10px #003a18;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      animation: glow 2.5s infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 20px #00ff88; }
+      to { text-shadow: 0 0 42px #00ff88; }
+    }
+    table {
+      width: clamp(320px,85%,980px);
+      margin: 3vh auto 2vh;
+      border-collapse: collapse;
+      background: linear-gradient(98deg,#181818 50%,#004d40 120%);
+      border-radius: 18px;
+      box-shadow: 0 8px 44px rgba(0,255,136,0.15);
+      overflow: hidden;
+    }
+    th, td {
+      padding: 1.2em 0.7em;
+      font-size: clamp(1.1rem,3vw,1.7rem);
+      text-align: center;
+      border-bottom: 1px solid #114d35;
+    }
+    th {
+      background: linear-gradient(90deg,#00ff88 60%, #76ff03 100%);
+      color: #032d18;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      font-weight: 700;
+      font-size: clamp(1.15rem,3vw,1.6rem);
+      border-bottom: 3px solid #00c157;
+      box-shadow: 0 2px 10px #00ff88a0,inset 0 -3px 8px #76ff0333;
+    }
+    tr:nth-child(even) td {
+      background: rgba(34, 61, 41, 0.52);
+    }
+    tr:hover td {
+      background: #00ff8860;
+      color: #064622;
+      transition: background 0.19s, color 0.16s;
+    }
+    td {
+      font-weight: 500;
+      color: #dfffe6;
+      text-shadow: 0 1px 4px #00ff88a0;
+      transition: color 0.16s, background 0.19s;
+    }
+    footer {
+      margin-top: 4vh;
+      padding: 2.2em 0 1.1em 0;
+      background: linear-gradient(120deg, #103c31 10%, #081c15 90%);
+      color: #96e6c9;
+      font-size: clamp(0.9rem,2.4vw,1.25rem);
+      letter-spacing: 0.05em;
+      border-radius: 30px 30px 0 0 / 38px 38px 0 0;
+      box-shadow: 0 -4px 18px rgba(0,255,136,0.08);
+    }
+    @media (max-width: 600px) {
+      th, td { font-size: 1.07rem; padding: 0.8em 0.2em; }
+      footer { font-size: 0.98rem; }
+      h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <h1>⚽ Top Scorers</h1>
+
+  <table id="scoreTable">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Player</th>
+        <th>Team</th>
+        <th>Goals</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td></td><td>basim</td><td>Team E</td><td>2</td></tr>
+      <tr><td></td><td>shimveel</td><td>Team A</td><td>1</td></tr>
+      <tr><td></td><td>danish</td><td>Team D</td><td>1</td></tr>
+      <tr><td></td><td>midlaj</td><td>Team F</td><td>1</td></tr>
+      <tr><td></td><td>yaseen</td><td>Team F</td><td>1</td></tr>
+      <tr><td></td><td>sinan</td><td>Team E</td><td>1</td></tr>
+      <tr><td></td><td>solih</td><td>Team F</td><td>4</td></tr>
+      <tr><td></td><td>favad</td><td>Team B</td><td>1</td></tr>
+      <tr><td></td><td>shafi</td><td>Team B</td><td>1</td></tr>
+      <tr><td></td><td>ashwajith</td><td>Team D</td><td>1</td></tr>
+    </tbody>
+  </table>
+
+  <footer>
+    © 2025 Pullanur Super League
+  </footer>
+
+  <script>
+    // Auto sort players by goals
+    const table = document.getElementById("scoreTable");
+    const tbody = table.querySelector("tbody");
+    const rows = Array.from(tbody.querySelectorAll("tr"));
+
+    rows.sort((a, b) => {
+      const goalsA = parseInt(a.cells[3].innerText);
+      const goalsB = parseInt(b.cells[3].innerText);
+      return goalsB - goalsA; // Descending order
+    });
+
+    rows.forEach((row, i) => {
+      row.cells[0].innerText = i + 1; // Rank number
+      tbody.appendChild(row);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Best Goalkeepers - Pullanur Super League</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(120deg, #050505 0%, #011b0c 70%, #101010 100%);
+      color: #e0ffed;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    h1 {
+      margin: 2.2rem 0 1.5rem 0;
+      color: #00ff88;
+      font-size: clamp(2.8rem, 7vw, 5.2rem);
+      font-weight: 700;
+      text-shadow: 0 0 24px #00ff88, 0 2px 10px #013c21;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      animation: glow 2.5s infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 20px #00ff88; }
+      to   { text-shadow: 0 0 45px #00ff88; }
+    }
+    table {
+      width: clamp(340px, 89%, 980px);
+      margin: 3vh auto 2vh;
+      border-collapse: collapse;
+      background: linear-gradient(100deg,#181818 50%,#002e1a 130%);
+      border-radius: 18px;
+      box-shadow: 0 8px 35px rgba(0,255,136,0.13);
+      overflow: hidden;
+    }
+    th, td {
+      padding: 1.2em 0.7em;
+      font-size: clamp(1.1rem,3vw,1.7rem);
+      text-align: center;
+      border-bottom: 1px solid #125a3a;
+    }
+    th {
+      background: linear-gradient(90deg,#00ff88 70%, #00ae4c 100%);
+      color: #032d18;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      font-weight: 700;
+      font-size: clamp(1.15rem,3vw,1.6rem);
+      border-bottom: 3px solid #00c157;
+      box-shadow: 0 3px 12px #00ff88a0,inset 0 -3px 8px #76ff0333;
+    }
+    tr:nth-child(even) td {
+      background: rgba(34, 53, 41, 0.46);
+    }
+    tr:hover td {
+      background: #00ff8842;
+      color: #064622;
+      transition: background 0.18s, color 0.15s;
+    }
+    td {
+      font-weight: 500;
+      color: #dfffe6;
+      text-shadow: 0 1px 4px #00ff88a0;
+      transition: color 0.14s, background 0.17s;
+    }
+    .gold {
+      background: linear-gradient(90deg, #ffd700, #ffb300);
+      color: #04330f !important;
+      text-shadow: none;
+      font-weight: 700;
+    }
+    footer {
+      margin-top: 4vh;
+      padding: 2.3em 0 1.15em 0;
+      background: linear-gradient(110deg, #1e3932 16%, #050505 90%);
+      color: #96e6c9;
+      font-size: clamp(.95rem,2.4vw,1.2rem);
+      letter-spacing: 0.05em;
+      border-radius: 28px 28px 0 0 / 38px 38px 0 0;
+      box-shadow: 0 -4px 18px rgba(0,255,136,0.08);
+    }
+    @media (max-width: 600px) {
+      th, td { font-size: 1.05rem; padding: 0.7em 0.15em; }
+      h1 { font-size: 2.1rem; }
+      footer { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <h1>🧤 Best Goalkeepers</h1>
+
+  <table id="gkTable">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Goalkeeper</th>
+        <th>Team</th>
+        <th>Clean Sheets</th>
+        <th>Goals Conceded</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td></td><td>midlaj</td><td>Team A</td><td>2</td><td>0</td></tr>
+      <tr><td></td><td>none</td><td>Team B</td><td>0</td><td>1</td></tr>
+      <tr><td></td><td>adhil</td><td>Team C</td><td>1</td><td>1</td></tr>
+      <tr><td></td><td>midlaj kk</td><td>Team D</td><td>2</td><td>5</td></tr>
+      <tr><td></td><td>shefin</td><td>Team E</td><td>0</td><td>5</td></tr>
+      <tr><td></td><td>yaseen</td><td>Team F</td><td>0</td><td>3</td></tr>
+    </tbody>
+  </table>
+
+  <footer>© 2025 Pullanur Super League</footer>
+
+  <script>
+    const table = document.getElementById("gkTable");
+    const tbody = table.querySelector("tbody");
+    const rows = Array.from(tbody.querySelectorAll("tr"));
+
+    // Sort: more clean sheets first; if equal, fewer goals conceded first
+    rows.sort((a, b) => {
+      const cleanA = parseInt(a.cells[3].innerText);
+      const cleanB = parseInt(b.cells[3].innerText);
+      const concededA = parseInt(a.cells[4].innerText);
+      const concededB = parseInt(b.cells[4].innerText);
+
+      if (cleanB !== cleanA) return cleanB - cleanA; // higher clean sheet first
+      return concededA - concededB; // lower goals conceded first
+    });
+
+    // Update rank & highlight first
+    rows.forEach((row, i) => {
+      row.cells[0].innerText = i + 1;
+      row.classList.remove("gold");
+      if (i === 0) row.classList.add("gold"); // highlight best GK
+      tbody.appendChild(row);
+    });
+  </script>
+</body>
+</html>
