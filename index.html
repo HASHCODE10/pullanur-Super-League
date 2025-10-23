@@ -1,390 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Pullanur Super League Standings</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pullanur Super League</title>
+  <!-- Font & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
+    html {
+      height: 100%;
+    }
     body {
-      font-family: "Segoe UI", "Roboto", Arial, sans-serif;
-      background: linear-gradient(135deg, #151d27 0%, #374f6d 100%);
-      color: #fff;
       margin: 0;
-      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(120deg, #081c15 0%, #103c31 50%, #052614 100%);
+      color: #f0fff2;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: stretch;
+      overflow-x: hidden;
     }
-    .container {
-      width: 99%;
-      max-width: 980px;
-      margin: 40px auto;
-      background: rgba(34,51,74,0.96);
-      border-radius: 14px;
-      box-shadow: 0 4px 32px 0 rgba(16,39,76,0.15);
-      padding: 20px 8px 12px 8px;
-      transition: box-shadow 0.4s;
+    /* Header */
+    header {
+      background: linear-gradient(90deg, #0ef26d 0%, #306965 100%);
+      box-shadow: 0 8px 20px rgba(11, 95, 73, 0.35);
+      position: relative;
+      z-index: 1;
     }
-    h2 {
-      text-align: center;
-      font-size: 2em;
-      letter-spacing: 2px;
-      margin-bottom: 13px;
-      color: #ffd700;
-      font-weight: 600;
-      text-shadow: 0 2px 8px #0006;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: rgba(45,64,96,0.95);
-      margin-bottom: 22px;
-      font-size: 1em;
-      border-radius: 6px;
-      overflow: hidden;
-      box-shadow: 0 1px 6px #1115;
-      table-layout: fixed;
-    }
-    th, td {
-      padding: 8px 5px;
-      text-align: center;
-      border-bottom: 1px solid #2f3d4c;
-      word-break: break-word;
-    }
-    th {
-      background: linear-gradient(90deg,#23334a 0%, #374f6d 80%);
-      font-weight: 600;
-      color: #ffd700;
-      font-size: 0.92em;
-    }
-    tr:last-child td {
-      border-bottom: none;
-    }
-    .button {
-      display: inline-block;
-      width: 90%;
-      max-width: 310px;
-      padding: 13px 0;
-      border: none;
-      border-radius: 7px;
-      background: linear-gradient(90deg, #5cf6b2 0%, #2fa3fa 100%);
-      color: #232;
-      cursor: pointer;
-      font-size: 1em;
-      font-weight: 600;
-      margin: 12px auto 0 auto;
-      box-shadow: 0 2px 10px #152c45cc;
-      transition: box-shadow 0.3s, background 0.3s;
-      display: block;
-    }
-    .button:hover {
-      background: linear-gradient(90deg, #34fbbe 0%, #2186f7 100%);
-      box-shadow: 0 3px 18px #212952b0;
-      color: #111;
-    }
-    #adminModal,
-    #passwordModal {
-      display: none;
-      position: fixed;
-      z-index: 900;
-      left: 0;
-      top: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(25,33,42,0.96);
+    .logo-area {
+      display: flex;
       align-items: center;
       justify-content: center;
+      gap: 2rem;
+      padding: 2.5rem 0 1rem;
+      animation: fadein 1.5s cubic-bezier(.77,.24,.14,.8) forwards;
     }
-    .modal-content {
-      background: linear-gradient(130deg, #22334a 92%, #34547b 100%);
-      padding: 24px 11px 17px 11px;
-      border-radius: 13px;
-      width: 96vw;
-      max-width: 350px;
-      box-shadow: 0 8px 32px #1b254299;
-      position: relative;
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(-40px);}
+      to   { opacity: 1; transform: none;}
+    }
+    .logo-area i {
+      font-size: 3rem;
+      color: #00ff88;
+      filter: drop-shadow(0px 0px 8px #00ff88);
+      animation: pulse 2s infinite alternate;
+    }
+    @keyframes pulse {
+      0% {filter: drop-shadow(0px 0px 8px #00ff88);}
+      50% {filter: drop-shadow(0px 0px 22px #00ff88);}
+      100% {filter: drop-shadow(0px 0px 8px #00ff88);}
+    }
+    h1 {
+      margin: 0;
       color: #fff;
-      font-size: 1em;
-      animation: fadeInModal 0.35s;
+      font-size: clamp(2.3rem, 5vw, 4rem);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 700;
+      text-shadow: 0 0 32px #00ff88, 0 3px 18px #002a16;
     }
-    @keyframes fadeInModal {
-      from { opacity: 0; transform: translateY(18px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
-    .close {
-      color: #ffd700;
-      font-size: 2em;
-      float: right;
-      cursor: pointer;
-      font-weight: bold;
-      position: absolute;
-      top: 9px;
-      right: 13px;
-    }
-    .close:hover { color: #fff700; }
-    label {
-      margin-top: 7px;
-      margin-bottom: 5px;
-      font-size: 1em;
-      font-weight: 500;
-      color: #bee0ff;
-      letter-spacing: 1px;
-    }
-    input, select {
-      display: block;
-      width: 100%;
-      background: #263343;
-      border: 1px solid #466088;
-      border-radius: 5px;
-      padding: 8px 7px;
-      margin-bottom: 10px;
-      color: #fff;
-      font-size: 1em;
-      outline: none;
-      box-sizing: border-box;
-    }
-    input:focus, select:focus {
-      border-color: #39b54a;
-      background: #304661;
-    }
-    form button[type="submit"] {
-      padding: 11px 0;
-      font-size: 1em;
-      background: linear-gradient(90deg, #39b54a 0%, #62d983 90%);
-      color: #162d2a;
-      border: none;
-      border-radius: 7px;
-      margin-top: 6px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      cursor: pointer;
-      box-shadow: 0 2px 12px #29bc557d;
-      transition: background 0.25s;
-      width: 100%;
-    }
-    form button[type="submit"]:hover {
-      background: linear-gradient(90deg, #31b548 0%, #9df98b 100%);
-      color: #1c312c;
-    }
-    /* Football Animation */
-    .football-animation {
-      width: 100vw;
-      height: 80px;
-      margin-top: 10px;
+    nav {
+      margin: 0 auto 2rem;
       display: flex;
       justify-content: center;
-      align-items: flex-end;
-      filter: drop-shadow(0 14px 18px #ffd70080);
+      gap: 2rem;
+      flex-wrap: wrap;
     }
-    .ball {
-      width: 42px;
-      height: 42px;
-      background: radial-gradient(#fff 70%, #222 73%);
-      border-radius: 50%;
-      border: 3px solid #111;
-      animation: bounce 1.4s infinite cubic-bezier(.31,.7,.7,.33);
+    nav a {
+      background: linear-gradient(140deg,#00ff88 60%, #057834 100%);
+      color: #183c28;
+      text-decoration: none;
+      padding: 0.85rem 2.5rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1.19rem;
+      letter-spacing: 0.06em;
+      box-shadow: 0 2px 8px rgba(0,255,136,0.4);
       position: relative;
-      box-shadow: 0 6px 20px #161d3980;
+      transition: background 0.3s, color 0.3s, transform 0.18s;
+      overflow: hidden;
     }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0);}
-      50% { transform: translateY(-48px);}
+    nav a:hover, nav a:focus {
+      background: linear-gradient(140deg,#fffde7 70%, #00ff88 100%);
+      color: #057834;
+      transform: scale(1.08);
+      box-shadow: 0 8px 28px rgba(0,255,136,0.35);
     }
-    /* Responsive: show columns less on very small screens */
-    @media (max-width: 520px) {
-      .container {padding: 2vw;}
-      h2 {font-size: 1.3em;}
-      .modal-content {width: 99vw;max-width:99vw;}
-      table th, table td {padding: 7px 4px;font-size:0.93em;}
-      table th:nth-child(n+5),
-      table td:nth-child(n+5) {display:none;}
+    /* Hero */
+    .hero {
+      max-width: 950px;
+      margin: 2rem auto 1.5rem;
+      padding: 2.5rem;
+      background: linear-gradient(110deg, rgba(0,255,136,0.07) 0%,rgba(0,255,136,0.03) 100%);
+      border-radius: 30px;
+      box-shadow: 0 6px 40px rgba(0, 255, 136, 0.08);
     }
-    @media (max-width: 360px) {
-      .container{padding:0;}
-      h2{font-size:1em;}
+    .hero-title {
+      font-size: 1.6rem;
+      color: #00ff88;
+      margin: 0 0 0.8rem 0;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+    }
+    .hero-desc {
+      color: #edeef0;
+      font-size: 1.09rem;
+      margin-bottom: 0.5em;
+      line-height: 1.7;
+      text-shadow: 0 0 10px #003c24;
+    }
+    .hero-facts {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2.4rem;
+      margin-top: 1.5em;
+    }
+    .fact {
+      background: linear-gradient(135deg, #003c24, #057834 80%);
+      color: #00ff88;
+      font-size: 1.09rem;
+      font-weight: 600;
+      padding: 0.6em 1.7em;
+      border-radius: 24px;
+      box-shadow: 0 4px 9px rgba(0,255,136,0.15);
+      letter-spacing: 0.04em;
+      user-select: none;
+      border: 2px solid #00ff8833;
+      transition: background 0.3s;
+    }
+    .fact i { 
+      color: #fff;
+      margin-right: .65em;
+      font-size: 1.23em;
+      vertical-align: middle;
+    }
+    /* Teams Showcase */
+    .teams-section {
+      margin: 2.5em auto 1.9em;
+      max-width: 1000px;
+      text-align: center;
+    }
+    .teams-title {
+      color: #76ff03;
+      font-size: 1.35rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 1em;
+      letter-spacing: 0.11em;
+    }
+    .teams-grid {
+      display: flex;
+      gap: 1.5em;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .team-card {
+      background: linear-gradient(125deg, #004d40 30%, #00ff88 110%);
+      color: #111;
+      padding: 1.4em 1.2em;
+      min-width: 140px;
+      border-radius: 25px;
+      box-shadow: 0 3px 14px rgba(0,255,136,0.14);
+      font-size: 1.06em;
+      font-weight: 600;
+      transition: box-shadow 0.2s, transform 0.25s;
+      text-shadow: 0 0 10px #b2ff59;
+    }
+    .team-card:hover {
+      box-shadow: 0 10px 42px rgba(0,255,136,0.57);
+      transform: translateY(-5px) scale(1.06);
+      color: #183c28;
+    }
+    .team-card .fa-shield-alt {
+      color: #fff;
+      margin-right: .8em;
+      filter: drop-shadow(0 0 5px #183c28);
+    }
+    /* Footer */
+    footer {
+      margin-top: auto;
+      background: linear-gradient(120deg, #103c31 0%, #081c15 100%);
+      color: #a4e4bd;
+      font-size: 1rem;
+      padding: 2.2em 0 1em;
+      text-align: center;
+      box-shadow: 0 -6px 25px rgba(0,255,136,0.04);
+      letter-spacing: 0.05em;
+      border-radius: 36px 36px 0 0 / 62px 62px 0 0;
+    }
+    @media (max-width: 650px) {
+      .logo-area { flex-direction: column;}
+      nav { gap: 1rem; }
+      .hero, .teams-section { padding: 1.3rem; }
+      .teams-grid { gap: 0.7em; }
+      footer { font-size: 0.95rem; }
     }
   </style>
 </head>
 <body>
-
-  <div class="football-animation">
-    <div class="ball"></div>
-  </div>
-
-  <div class="container">
-    <h2>Pullanur Super League Standings</h2>
-    <table id="standingsTable">
-      <thead>
-        <tr>
-          <th>Team</th>
-          <th>Played</th>
-          <th>Won</th>
-          <th>Drawn</th>
-          <th>Lost</th>
-          <th>GF</th>
-          <th>GA</th>
-          <th>GD</th>
-          <th>Points</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Rows loaded by JS -->
-      </tbody>
-    </table>
-    <button class="button" onclick="openPasswordModal()">Open Admin Panel</button>
-  </div>
-
-  <!-- Password Modal -->
-  <div id="passwordModal">
-    <div class="modal-content">
-      <span class="close" onclick="closePasswordModal()">&times;</span>
-      <h3 style="color:#ffd700; margin-bottom:14px;font-size:1.1em;">Admin Access Required</h3>
-      <form id="passwordForm">
-        <label for="adminPass">Enter Password</label>
-        <input type="password" id="adminPass" required autocomplete="off" placeholder="Password" />
-        <button type="submit">Enter Admin Panel</button>
-      </form>
-      <div id="passError" style="color:#ff5a5a; margin-top:4px; font-size:0.97em;"></div>
+  <header>
+    <div class="logo-area">
+      <i class="fas fa-futbol"></i>
+      <h1>Pullanur Super League</h1>
     </div>
-  </div>
+    <nav>
+      <a href="standings.html"><i class="fas fa-list-ol"></i> Standings</a>
+      <a href="topscorers.html"><i class="fas fa-bolt"></i> Top Scorers</a>
+      <a href="bestgk.html"><i class="fas fa-hand-rock"></i> Best Goalkeepers</a>
+    </nav>
+  </header>
 
-  <!-- Admin Modal -->
-  <div id="adminModal">
-    <div class="modal-content">
-      <span class="close" onclick="closeAdminPanel()">&times;</span>
-      <h3 style="color:#ffd700; margin-bottom:14px; font-size:1.1em;">Update Match Result</h3>
-      <form id="matchForm">
-        <label>Team 1</label>
-        <select id="team1" required></select>
-        <label>Team 2</label>
-        <select id="team2" required></select>
-        <label>Team 1 Goals</label>
-        <input type="number" id="goals1" required min="0"/>
-        <label>Team 2 Goals</label>
-        <input type="number" id="goals2" required min="0"/>
-        <button type="submit">Update Standings</button>
-      </form>
+  <section class="hero">
+    <div class="hero-title">The Ultimate Local Football Showdown</div>
+    <div class="hero-desc">
+      Welcome to the <strong>Pullanur Super League</strong>, where six elite teams clash in a round-robin showcase of skill, rivalry, and electrifying moments.<br>
+      Experience pure competition and raw passion as every team faces every other just once—every match counts!
     </div>
-  </div>
+    <div class="hero-facts">
+      <span class="fact"><i class="fas fa-users"></i>6 Teams</span>
+      <span class="fact"><i class="fas fa-fire"></i>Only Top Talent</span>
+      <span class="fact"><i class="fas fa-sync-alt"></i>Single Round-robin</span>
+      <span class="fact"><i class="fas fa-trophy"></i>1 Champion</span>
+    </div>
+  </section>
 
-  <script>
-  // Load saved teams from localStorage if available
-  let teams = JSON.parse(localStorage.getItem("pullanur_league")) || [
-    { name: "Team A", played: 2, won: 1, drawn: 1, lost: 0, gf: 1, ga: 0, gd: 1, points: 4 },
-    { name: "Team B", played: 2, won: 1, drawn: 1, lost: 0, gf: 2, ga: 1, gd: 1, points: 4 },
-    { name: "Team C", played: 2, won: 0, drawn: 1, lost: 1, gf: 0, ga: 1, gd: -1, points: 1 },
-    { name: "Team D", played: 3, won: 1, drawn: 1, lost: 1, gf: 2, ga: 5, gd: -3, points: 4 },
-    { name: "Team E", played: 3, won: 0, drawn: 1, lost: 2, gf: 3, ga: 5, gd: -2, points: 1 },
-    { name: "Team F", played: 2, won: 1, drawn: 1, lost: 0, gf: 7, ga: 3, gd: 4, points: 4 }
-  ];
+  <section class="teams-section">
+    <div class="teams-title">Featured Teams</div>
+    <div class="teams-grid">
+      <div class="team-card"><i class="fas fa-shield-alt"></i>Pullanur United</div>
+      <div class="team-card"><i class="fas fa-shield-alt"></i>Rivera FC</div>
+      <div class="team-card"><i class="fas fa-shield-alt"></i>Legends SC</div>
+      <div class="team-card"><i class="fas fa-shield-alt"></i>Titans FC</div>
+      <div class="team-card"><i class="fas fa-shield-alt"></i>Strikers XI</div>
+      <div class="team-card"><i class="fas fa-shield-alt"></i>Warriors Club</div>
+    </div>
+  </section>
+  
 
-  // Save to localStorage
-  function saveData() {
-    localStorage.setItem("pullanur_league", JSON.stringify(teams));
-  }
-
-  // Render standings
-  function renderStandings() {
-    const tbody = document.querySelector("#standingsTable tbody");
-    tbody.innerHTML = "";
-    teams.sort((a, b) => b.points - a.points || b.gd - a.gd || b.gf - a.gf);
-    teams.forEach(team => {
-      const row = `
-        <tr>
-          <td>${team.name}</td>
-          <td>${team.played}</td>
-          <td>${team.won}</td>
-          <td>${team.drawn}</td>
-          <td>${team.lost}</td>
-          <td>${team.gf}</td>
-          <td>${team.ga}</td>
-          <td>${team.gd}</td>
-          <td>${team.points}</td>
-        </tr>`;
-      tbody.innerHTML += row;
-    });
-  }
-  renderStandings();
-
-  // Password modal logic
-  const passwordModal = document.getElementById("passwordModal");
-  const adminModal = document.getElementById("adminModal");
-  const passwordForm = document.getElementById("passwordForm");
-  const passError = document.getElementById("passError");
-
-  function openPasswordModal() {
-    passwordModal.style.display = "flex";
-    document.getElementById("adminPass").value = "";
-    passError.textContent = "";
-  }
-  function closePasswordModal() {
-    passwordModal.style.display = "none";
-  }
-
-  passwordForm.onsubmit = function(e) {
-    e.preventDefault();
-    const inputPass = document.getElementById("adminPass").value;
-    const correctPassword = "superadmin2025";
-    if (inputPass === correctPassword) {
-      closePasswordModal();
-      openAdminPanel();
-    } else {
-      passError.textContent = "Incorrect password. Try again.";
-    }
-  };
-
-  function openAdminPanel() {
-    adminModal.style.display = "flex";
-    const team1Select = document.getElementById("team1");
-    const team2Select = document.getElementById("team2");
-    team1Select.innerHTML = teams.map(t => `<option value="${t.name}">${t.name}</option>`).join("");
-    team2Select.innerHTML = teams.map(t => `<option value="${t.name}">${t.name}</option>`).join("");
-  }
-  function closeAdminPanel() {
-    adminModal.style.display = "none";
-  }
-
-  window.onclick = function(e) {
-    if (e.target === passwordModal) closePasswordModal();
-    if (e.target === adminModal) closeAdminPanel();
-  };
-
-  // Match form submit
-  document.getElementById("matchForm").onsubmit = function(e) {
-    e.preventDefault();
-    const t1 = document.getElementById("team1").value;
-    const t2 = document.getElementById("team2").value;
-    const goals1 = parseInt(document.getElementById("goals1").value);
-    const goals2 = parseInt(document.getElementById("goals2").value);
-
-    if (t1 === t2) {
-      alert("Select two different teams.");
-      return;
-    }
-
-    const teamObj1 = teams.find(t => t.name === t1);
-    const teamObj2 = teams.find(t => t.name === t2);
-
-    teamObj1.played += 1;
-    teamObj2.played += 1;
-    teamObj1.gf += goals1; teamObj1.ga += goals2;
-    teamObj2.gf += goals2; teamObj2.ga += goals1;
-    teamObj1.gd = teamObj1.gf - teamObj1.ga;
-    teamObj2.gd = teamObj2.gf - teamObj2.ga;
-
-    if (goals1 > goals2) {
-      teamObj1.won += 1; teamObj2.lost += 1; teamObj1.points += 3;
-    } else if (goals2 > goals1) {
-      teamObj2.won += 1; teamObj1.lost += 1; teamObj2.points += 3;
-    } else {
-      teamObj1.drawn += 1; teamObj2.drawn += 1;
-      teamObj1.points += 1; teamObj2.points += 1;
-    }
-
-    saveData();
-    renderStandings();
-    closeAdminPanel();
-  };
-  </script>
+  <footer>
+    © 2025 Pullanur Super League &mdash; Built with years of passion and precision ⚡
+  </footer>
 </body>
 </html>
-
-
